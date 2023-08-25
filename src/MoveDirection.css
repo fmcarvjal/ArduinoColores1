@@ -1,0 +1,76 @@
+/* SliderComponent.css */
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    width: 70vw; /* Ancho al 100% de la ventana */
+  
+  }
+  
+  .slider-container label {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+  
+  /* Aumenta el ancho del slider */
+  .slider-container input {
+
+    width: 90%; /* Cambia el ancho del slider al 100% */
+    max-width: 1200px; /* Establece un ancho máximo */
+  }
+  
+  /* Personaliza el aspecto del slider */
+  .slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .slider-container input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .slider-container input[type="range"]:focus {
+    outline: none;
+  }
+  
+  /* Cambia el color de la barra del slider */
+  .slider-container input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    background-color: #ddd;
+    border-radius: 3px;
+  }
+  
+  .slider-container input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    background-color: #ddd;
+    border-radius: 3px;
+  }
+  
+  .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+    background-color: #0056b3;
+  }
+  
+  .slider-container input[type="range"]::-moz-range-thumb:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Resto de tus estilos */
+  
