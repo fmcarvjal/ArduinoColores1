@@ -25,9 +25,9 @@ function Game({ imageUrls, moveDirections }) {
   const [disabledButtons, setDisabledButtons] = useState([]);
   const [buttonPosition, setButtonPosition] = useState(0);
   const [moveDirection, setMoveDirection] = useState(0);
-  const [ocultarButtons, setOcultarButtons] = useState(Array(23).fill(true));
+  const [ocultarButtons, setOcultarButtons] = useState(Array(36).fill(true));
 
-  const [buttonOpacities, setButtonOpacities] = useState(Array(23).fill(1)); // Inicializar las opacidades
+  const [buttonOpacities, setButtonOpacities] = useState(Array(36).fill(1)); // Inicializar las opacidades
 
   const [scrollSpeed, setScrollSpeed] = useState(2);
 
@@ -106,7 +106,7 @@ function Game({ imageUrls, moveDirections }) {
       }  
      
       
-    }, moveDirection);
+    }, 3-moveDirection);
 
     return () => {
       clearInterval(moveButtonInterval);
@@ -170,14 +170,14 @@ function Game({ imageUrls, moveDirections }) {
       setOcultarButtons(updatedOcultar);
 
       const updatedOpacities = [...buttonOpacities];
-      updatedOpacities[index] = 0; // Cambiar la opacidad a 0.5 (puedes ajustar este valor)
+      updatedOpacities[index] = 0; // Cambiar la opacidad a 0 (puedes ajustar este valor)
       setButtonOpacities(updatedOpacities);
 
       setTimeout(() => {
         setDisabledButtons((prevDisabled) =>
           prevDisabled.filter((btnIndex) => btnIndex !== index)
         );
-      }, 300); // Habilita el botón después de 1/2 segundo (ajusta el tiempo según tus necesidades)
+      }, 0); // Habilita el botón después de 1/2 segundo (ajusta el tiempo según tus necesidades)
     }
   };
 
@@ -424,6 +424,132 @@ function Game({ imageUrls, moveDirections }) {
             imageUrl={imageUrls[0] || imagen}
             buttonText="22"
             opacidad={buttonOpacities[22]}
+          />
+        </div>
+        <div className="button-row3">
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1200}
+            handleClick={() => handleClick(23)}
+            imageUrl={imageUrls[3] || imagen2}
+            buttonText="23"
+            opacidad={buttonOpacities[23]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1350}
+            handleClick={() => handleClick(24)}
+            imageUrl={imageUrls[2] || imagen3}
+            buttonText="24"
+            opacidad={buttonOpacities[24]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1550}
+            handleClick={() => handleClick(25)}
+            imageUrl={imageUrls[1] || imagen2}
+            buttonText="25"
+            opacidad={buttonOpacities[25]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1250}
+            handleClick={() => handleClick(26)}
+            imageUrl={imageUrls[0] || imagen}
+            buttonText="26"
+            opacidad={buttonOpacities[26]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1250}
+            handleClick={() => handleClick(27)}
+            imageUrl={imageUrls[2] || imagen2}
+            buttonText="27"
+            opacidad={buttonOpacities[27]}
+          />
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1850}
+            handleClick={() => handleClick(28)}
+            imageUrl={imageUrls[1] || imagen3}
+            buttonText="28"
+            opacidad={buttonOpacities[28]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1850}
+            handleClick={() => handleClick(29)}
+            imageUrl={imageUrls[0] || imagen}
+            buttonText="29"
+            opacidad={buttonOpacities[29]}
+          />
+        </div>
+        <div className="button-row4">
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1150}
+            handleClick={() => handleClick(30)}
+            imageUrl={imageUrls[3] || imagen3}
+            buttonText="30"
+            opacidad={buttonOpacities[30]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1350}
+            handleClick={() => handleClick(31)}
+            imageUrl={imageUrls[2] || imagen3}
+            buttonText="31"
+            opacidad={buttonOpacities[31]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1550}
+            handleClick={() => handleClick(32)}
+            imageUrl={imageUrls[1] || imagen2}
+            buttonText="32"
+            opacidad={buttonOpacities[32]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1250}
+            handleClick={() => handleClick(33)}
+            imageUrl={imageUrls[0] || imagen}
+            buttonText="33"
+            opacidad={buttonOpacities[33]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1250}
+            handleClick={() => handleClick(34)}
+            imageUrl={imageUrls[2] || imagen}
+            buttonText="34"
+            opacidad={buttonOpacities[34]}
+          />
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1850}
+            handleClick={() => handleClick(35)}
+            imageUrl={imageUrls[1] || imagen3}
+            buttonText="35"
+            opacidad={buttonOpacities[35]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1850}
+            handleClick={() => handleClick(36)}
+            imageUrl={imageUrls[0] || imagen}
+            buttonText="36"
+            opacidad={buttonOpacities[36]}
           />
         </div>
       </div>

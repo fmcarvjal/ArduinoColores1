@@ -106,6 +106,26 @@
       gap:60px;
     
     }
+
+    .button-row3{
+      position: absolute;
+      display: flex;
+      justify-content:space-between;
+      left: 0;
+      top: 600px;
+      gap:60px;
+    
+    }
+
+    .button-row4{
+      position: absolute;
+      display: flex;
+      justify-content:space-around;
+      left: 0;
+      top: 100px;
+      gap:60px;
+    
+    }
     
     /* En tu archivo App.css o en un archivo de estilos por separado */
 
