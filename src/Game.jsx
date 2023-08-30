@@ -6,6 +6,7 @@ import imagen2 from "./assets/imagen/Azul.png";
 import imagen3 from "./assets/imagen/Verde.png";
 import imagen1 from "./assets/imagen/naranja.png";
 import imagen0 from "./assets/imagen/pacman3.png";
+import imagen4 from "./assets/imagen/barra.png";
 
 import ButtonComponent from "./ButtonComponent";
 
@@ -25,14 +26,16 @@ function Game({ imageUrls, moveDirections }) {
   const [disabledButtons, setDisabledButtons] = useState([]);
   const [buttonPosition, setButtonPosition] = useState(0);
   const [moveDirection, setMoveDirection] = useState(0);
-  const [ocultarButtons, setOcultarButtons] = useState(Array(36).fill(true));
+  const [ocultarButtons, setOcultarButtons] = useState(Array(40).fill(true));
 
-  const [buttonOpacities, setButtonOpacities] = useState(Array(36).fill(1)); // Inicializar las opacidades
+  const [buttonOpacities, setButtonOpacities] = useState(Array(40).fill(1)); // Inicializar las opacidades
 
   const [scrollSpeed, setScrollSpeed] = useState(2);
 
   const handImageRef = useRef(null); // Referencia a la imagen de la mano
   const [prevHandPosition, setPrevHandPosition] = useState({ x: 0, y: 0 }); // Agregar esta línea
+
+  const [successMessageShown, setSuccessMessageShown] = useState(false);
 
   
 
@@ -95,18 +98,16 @@ function Game({ imageUrls, moveDirections }) {
 
   useEffect(() => {
     const moveButtonInterval = setInterval(() => {
-      setButtonPosition((prevPosition) => prevPosition+1.3);
+      setButtonPosition((prevPosition) => prevPosition + 1.3);
 
       if (buttonPosition >= window.innerHeight + 1550) {
-       setMoveDirection(moveDirections);
+        setMoveDirection(moveDirections);
         setButtonPosition(10);
       } else if (buttonPosition <= 0) {
-       setMoveDirection(moveDirections);
+        setMoveDirection(moveDirections);
         setButtonPosition(10);
-      }  
-     
-      
-    }, 3-moveDirection);
+      }
+    }, moveDirection);
 
     return () => {
       clearInterval(moveButtonInterval);
@@ -177,7 +178,19 @@ function Game({ imageUrls, moveDirections }) {
         setDisabledButtons((prevDisabled) =>
           prevDisabled.filter((btnIndex) => btnIndex !== index)
         );
-      }, 0); // Habilita el botón después de 1/2 segundo (ajusta el tiempo según tus necesidades)
+      
+        // Verificar si los botones con índices 1, 5 y 13 tienen opacidad 0
+      const buttonsToCheck = [1, 17, 24];
+      const allButtonsHidden = buttonsToCheck.every(
+        (buttonIndex) => updatedOpacities[buttonIndex] === 0
+      );
+
+      if (allButtonsHidden && !successMessageShown) {
+        setSuccessMessageShown(true);
+        alert("¡Los botones con índices 1, 5 y 13 están ocultos! ¡Éxito!");
+      }
+      }, 0);
+      
     }
   };
 
@@ -217,7 +230,6 @@ function Game({ imageUrls, moveDirections }) {
         }}
       />
 
-  
       <div className="button-container">
         <div className="button-row">
           <ButtonComponent
@@ -235,7 +247,7 @@ function Game({ imageUrls, moveDirections }) {
             position={buttonPosition - 150}
             handleClick={() => handleClick(1)}
             imageUrl={imageUrls[3] || imagen3}
-            buttonText="11"
+            buttonText="01"
             isVisible={ocultarButtons[1]} // Pasar el valor de visibilidad como prop
             opacidad={buttonOpacities[1]}
           />
@@ -244,8 +256,8 @@ function Game({ imageUrls, moveDirections }) {
             color={buttonColors[0]}
             position={buttonPosition - 150}
             handleClick={() => handleClick(2)}
-            imageUrl={imageUrls[2] ||imagen2}
-            buttonText="22"
+            imageUrl={imageUrls[2] || imagen2}
+            buttonText="02"
             opacidad={buttonOpacities[2]}
           />
 
@@ -253,18 +265,18 @@ function Game({ imageUrls, moveDirections }) {
             color={buttonColors[0]}
             position={buttonPosition - 150}
             handleClick={() => handleClick(3)}
-            imageUrl={imageUrls[3] || imagen3}
-            buttonText="33"
-            opacidad={buttonOpacities[3]}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[113]}
           />
 
           <ButtonComponent
             color={buttonColors[0]}
             position={buttonPosition - 150}
             handleClick={() => handleClick(4)}
-            imageUrl={imageUrls[1] || imagen2}
-            buttonText="44"
-            opacidad={buttonOpacities[4]}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[114]}
           />
 
           <ButtonComponent
@@ -272,7 +284,7 @@ function Game({ imageUrls, moveDirections }) {
             position={buttonPosition - 150}
             handleClick={() => handleClick(5)}
             imageUrl={imageUrls[2] || imagen}
-            buttonText="55"
+            buttonText="05"
             opacidad={buttonOpacities[5]}
           />
 
@@ -281,7 +293,7 @@ function Game({ imageUrls, moveDirections }) {
             position={buttonPosition - 150}
             handleClick={() => handleClick(6)}
             imageUrl={imageUrls[1] || imagen3}
-            buttonText="66"
+            buttonText="06"
             opacidad={buttonOpacities[6]}
           />
           <ButtonComponent
@@ -289,11 +301,10 @@ function Game({ imageUrls, moveDirections }) {
             position={buttonPosition - 150}
             handleClick={() => handleClick(7)}
             imageUrl={imageUrls[0] || imagen}
-            buttonText="77"
+            buttonText="07"
             opacidad={buttonOpacities[7]}
           />
         </div>
-
         <div className="button-row2">
           <ButtonComponent
             color={buttonColors[0]}
@@ -324,18 +335,18 @@ function Game({ imageUrls, moveDirections }) {
             color={buttonColors[0]}
             position={buttonPosition - 750}
             handleClick={() => handleClick(11)}
-            imageUrl={imageUrls[3] || imagen3}
-            buttonText="11"
-            opacidad={buttonOpacities[11]}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[111]}
           />
 
           <ButtonComponent
             color={buttonColors[0]}
             position={buttonPosition - 750}
             handleClick={() => handleClick(12)}
-            imageUrl={imageUrls[0] || imagen2}
-            buttonText="12"
-            opacidad={buttonOpacities[12]}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[112]}
           />
           <ButtonComponent
             color={buttonColors[0]}
@@ -362,11 +373,10 @@ function Game({ imageUrls, moveDirections }) {
             opacidad={buttonOpacities[15]}
           />
         </div>
-
         <div className="button-row2">
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1150}
+            position={buttonPosition - 1100}
             handleClick={() => handleClick(16)}
             imageUrl={imageUrls[3] || imagen}
             buttonText="16"
@@ -375,7 +385,7 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1350}
+            position={buttonPosition - 1100}
             handleClick={() => handleClick(17)}
             imageUrl={imageUrls[2] || imagen3}
             buttonText="17"
@@ -384,7 +394,7 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1550}
+            position={buttonPosition - 1100}
             handleClick={() => handleClick(18)}
             imageUrl={imageUrls[1] || imagen}
             buttonText="18"
@@ -393,24 +403,24 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1250}
+            position={buttonPosition - 1100}
             handleClick={() => handleClick(19)}
-            imageUrl={imageUrls[0] || imagen2}
-            buttonText="19"
-            opacidad={buttonOpacities[19]}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[119]}
           />
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1250}
+            position={buttonPosition - 1100}
             handleClick={() => handleClick(20)}
-            imageUrl={imageUrls[2] || imagen}
-            buttonText="20"
-            opacidad={buttonOpacities[20]}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[201]}
           />
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1850}
+            position={buttonPosition - 1100}
             handleClick={() => handleClick(21)}
             imageUrl={imageUrls[1] || imagen3}
             buttonText="21"
@@ -419,26 +429,26 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1850}
+            position={buttonPosition - 1100}
             handleClick={() => handleClick(22)}
             imageUrl={imageUrls[0] || imagen}
             buttonText="22"
             opacidad={buttonOpacities[22]}
           />
-        </div>
-        <div className="button-row3">
+
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1200}
+            position={buttonPosition - 1100}
             handleClick={() => handleClick(23)}
             imageUrl={imageUrls[3] || imagen2}
             buttonText="23"
             opacidad={buttonOpacities[23]}
           />
-
+        </div>
+        <div className="button-row3">
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1350}
+            position={buttonPosition - 1700}
             handleClick={() => handleClick(24)}
             imageUrl={imageUrls[2] || imagen3}
             buttonText="24"
@@ -447,7 +457,7 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1550}
+            position={buttonPosition - 1700}
             handleClick={() => handleClick(25)}
             imageUrl={imageUrls[1] || imagen2}
             buttonText="25"
@@ -456,7 +466,7 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1250}
+            position={buttonPosition - 1700}
             handleClick={() => handleClick(26)}
             imageUrl={imageUrls[0] || imagen}
             buttonText="26"
@@ -465,34 +475,32 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1250}
+            position={buttonPosition - 1700}
             handleClick={() => handleClick(27)}
-            imageUrl={imageUrls[2] || imagen2}
-            buttonText="27"
-            opacidad={buttonOpacities[27]}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[271]}
           />
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1850}
+            position={buttonPosition - 1700}
             handleClick={() => handleClick(28)}
-            imageUrl={imageUrls[1] || imagen3}
-            buttonText="28"
-            opacidad={buttonOpacities[28]}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[281]}
           />
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1850}
+            position={buttonPosition - 1700}
             handleClick={() => handleClick(29)}
             imageUrl={imageUrls[0] || imagen}
             buttonText="29"
             opacidad={buttonOpacities[29]}
           />
-        </div>
-        <div className="button-row4">
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1150}
+            position={buttonPosition - 1700}
             handleClick={() => handleClick(30)}
             imageUrl={imageUrls[3] || imagen3}
             buttonText="30"
@@ -501,16 +509,17 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1350}
+            position={buttonPosition - 1700}
             handleClick={() => handleClick(31)}
             imageUrl={imageUrls[2] || imagen3}
             buttonText="31"
             opacidad={buttonOpacities[31]}
           />
-
+        </div>
+        <div className="button-row4">
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1550}
+            position={buttonPosition - 1500}
             handleClick={() => handleClick(32)}
             imageUrl={imageUrls[1] || imagen2}
             buttonText="32"
@@ -519,7 +528,7 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1250}
+            position={buttonPosition - 1500}
             handleClick={() => handleClick(33)}
             imageUrl={imageUrls[0] || imagen}
             buttonText="33"
@@ -528,7 +537,7 @@ function Game({ imageUrls, moveDirections }) {
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1250}
+            position={buttonPosition - 1500}
             handleClick={() => handleClick(34)}
             imageUrl={imageUrls[2] || imagen}
             buttonText="34"
@@ -536,20 +545,46 @@ function Game({ imageUrls, moveDirections }) {
           />
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1850}
+            position={buttonPosition - 1500}
             handleClick={() => handleClick(35)}
-            imageUrl={imageUrls[1] || imagen3}
-            buttonText="35"
-            opacidad={buttonOpacities[35]}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[351]}
           />
 
           <ButtonComponent
             color={buttonColors[0]}
-            position={buttonPosition - 1850}
+            position={buttonPosition - 1500}
             handleClick={() => handleClick(36)}
+            imageUrl={imagen4}
+            buttonText=""
+            opacidad={buttonOpacities[361]}
+          />
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1500}
+            handleClick={() => handleClick(37)}
+            imageUrl={imageUrls[1] || imagen3}
+            buttonText="37"
+            opacidad={buttonOpacities[37]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1500}
+            handleClick={() => handleClick(38)}
             imageUrl={imageUrls[0] || imagen}
-            buttonText="36"
-            opacidad={buttonOpacities[36]}
+            buttonText="38"
+            opacidad={buttonOpacities[38]}
+          />
+
+          <ButtonComponent
+            color={buttonColors[0]}
+            position={buttonPosition - 1500}
+            handleClick={() => handleClick(39)}
+            imageUrl={imageUrls[0] || imagen}
+            buttonText="39"
+            opacidad={buttonOpacities[39]}
           />
         </div>
       </div>

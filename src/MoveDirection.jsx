@@ -7,7 +7,7 @@ function SliderComponent({ onDirectionSubmit }) {
   const handleSliderChange = (event) => {
     const newMoveDirection = parseFloat(event.target.value);
     setMoveDirection(newMoveDirection);
-    onDirectionSubmit(newMoveDirection);
+    onDirectionSubmit(3-newMoveDirection);
   };
 
   return (
