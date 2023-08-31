@@ -10,7 +10,10 @@ import imagen4 from "./assets/imagen/barra.png";
 
 import ButtonComponent from "./ButtonComponent";
 
-function Game({ imageUrls, moveDirections,Indexs }) {
+// Importar librería de voz
+const synth = window.speechSynthesis;
+
+function Game({ imageUrls, moveDirections, Indexs }) {
   const videoRef = useRef(null);
   const [handClosed, setHandClosed] = useState(false);
   const [handPosition, setHandPosition] = useState({ x: 0, y: 0 });
@@ -36,8 +39,6 @@ function Game({ imageUrls, moveDirections,Indexs }) {
   const [prevHandPosition, setPrevHandPosition] = useState({ x: 0, y: 0 }); // Agregar esta línea
 
   const [successMessageShown, setSuccessMessageShown] = useState(false);
-
-
 
   useEffect(() => {
     const runHandDetection = async () => {
@@ -178,21 +179,22 @@ function Game({ imageUrls, moveDirections,Indexs }) {
         setDisabledButtons((prevDisabled) =>
           prevDisabled.filter((btnIndex) => btnIndex !== index)
         );
-      
-        // Utilizar la matriz Indexs en lugar de [1, 3, 14]
-      const allButtonsHidden = Indexs.every(
-        (buttonIndex) => updatedOpacities[buttonIndex] === 0
-      );
 
-      if (allButtonsHidden && !successMessageShown) {
-        setSuccessMessageShown(true);
-        alert("¡Los botones en los índices especificados están ocultos! ¡Éxito!");
+        const allButtonsHidden = Indexs.every(
+          (buttonIndex) => updatedOpacities[buttonIndex] === 0
+        );
 
-        console.log("Matriz Indexs:", Indexs);
-      
-      }
+        if (allButtonsHidden && !successMessageShown) {
+          setSuccessMessageShown(true);
+          // Cambiar el mensaje de alerta por un mensaje de voz
+          const successMessage = new SpeechSynthesisUtterance(
+            "¡Bien hecho! Continua jugando"
+          );
+          synth.speak(successMessage);
+
+          console.log("Matriz Indexs:", Indexs);
+        }
       }, 0);
-      
     }
   };
 
@@ -261,7 +263,6 @@ function Game({ imageUrls, moveDirections,Indexs }) {
             imageUrl={imageUrls[2] || imagen2}
             buttonText="02"
             opacidad={buttonOpacities[2]}
-            
           />
 
           <ButtonComponent
