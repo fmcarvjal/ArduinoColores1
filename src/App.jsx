@@ -4,10 +4,12 @@ import "./App.css";
 import AppPage from "./Game";
 import ImageInputPage from "./ImageInputPage";
 import MoveDirection from "./MoveDirection";
+import ImageVisibilityChecker from "./ImageVisibilityChecker"
 
 function App() {
   const [imageUrls, setImageUrls] = useState(["", "", "", ""]);
   const [moveDirections, setMoveDirections] = useState(0);
+  const [Indexs, setIndex] = useState(Array.from({ length: 40 }, () => "")); // Inicializar con ceros
 
   const handleImageSubmit = (newUrls) => {
     setImageUrls(newUrls);
@@ -16,6 +18,10 @@ function App() {
   const handleDirectionSubmit = (direction) => {
     setMoveDirections(direction);
   };
+
+  const toggleSelectedIndex =(index)=>{
+    setIndex(index)
+  }
 
   return (
     <div>
@@ -32,6 +38,9 @@ function App() {
                   <Link to="/direcction-input">Ingresar Velocidad</Link>
                 </li>
                 <li>
+                  <Link to="/imagen-index">Seleccionar Index</Link>
+                </li>
+                <li>
                   <Link to="/">Ir al Juego</Link>
                 </li>
               </ul>
@@ -44,6 +53,7 @@ function App() {
                 <AppPage
                   imageUrls={imageUrls}
                   moveDirections={moveDirections}
+                  Indexs={Indexs}
                 />
               }
             />
@@ -55,6 +65,14 @@ function App() {
               path="/direcction-input"
               element={
                 <MoveDirection onDirectionSubmit={handleDirectionSubmit} />
+              }
+            />
+            <Route
+              path="/imagen-index"
+              element={
+              <ImageVisibilityChecker onIndexSubmit={toggleSelectedIndex}
+            
+               />
               }
             />
           </Routes>

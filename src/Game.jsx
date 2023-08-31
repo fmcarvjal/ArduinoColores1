@@ -10,7 +10,7 @@ import imagen4 from "./assets/imagen/barra.png";
 
 import ButtonComponent from "./ButtonComponent";
 
-function Game({ imageUrls, moveDirections }) {
+function Game({ imageUrls, moveDirections,Indexs }) {
   const videoRef = useRef(null);
   const [handClosed, setHandClosed] = useState(false);
   const [handPosition, setHandPosition] = useState({ x: 0, y: 0 });
@@ -37,7 +37,7 @@ function Game({ imageUrls, moveDirections }) {
 
   const [successMessageShown, setSuccessMessageShown] = useState(false);
 
-  
+
 
   useEffect(() => {
     const runHandDetection = async () => {
@@ -179,15 +179,17 @@ function Game({ imageUrls, moveDirections }) {
           prevDisabled.filter((btnIndex) => btnIndex !== index)
         );
       
-        // Verificar si los botones con índices 1, 5 y 13 tienen opacidad 0
-      const buttonsToCheck = [1, 17, 24];
-      const allButtonsHidden = buttonsToCheck.every(
+        // Utilizar la matriz Indexs en lugar de [1, 3, 14]
+      const allButtonsHidden = Indexs.every(
         (buttonIndex) => updatedOpacities[buttonIndex] === 0
       );
 
       if (allButtonsHidden && !successMessageShown) {
         setSuccessMessageShown(true);
-        alert("¡Los botones con índices 1, 5 y 13 están ocultos! ¡Éxito!");
+        alert("¡Los botones en los índices especificados están ocultos! ¡Éxito!");
+
+        console.log("Matriz Indexs:", Indexs);
+      
       }
       }, 0);
       
@@ -259,6 +261,7 @@ function Game({ imageUrls, moveDirections }) {
             imageUrl={imageUrls[2] || imagen2}
             buttonText="02"
             opacidad={buttonOpacities[2]}
+            
           />
 
           <ButtonComponent
