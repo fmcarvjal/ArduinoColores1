@@ -29,7 +29,7 @@ function Game({ imageUrls, moveDirections, Indexs }) {
   const [disabledButtons, setDisabledButtons] = useState([]);
   const [buttonPosition, setButtonPosition] = useState(0);
   const [moveDirection, setMoveDirection] = useState(0);
-  const [ocultarButtons, setOcultarButtons] = useState(Array(40).fill(true));
+  const [ocultarButtons, setOcultarButtons] = useState(Array(40).fill(false));
 
   const [buttonOpacities, setButtonOpacities] = useState(Array(40).fill(1)); // Inicializar las opacidades
 
@@ -39,6 +39,8 @@ function Game({ imageUrls, moveDirections, Indexs }) {
   const [prevHandPosition, setPrevHandPosition] = useState({ x: 0, y: 0 }); // Agregar esta línea
 
   const [successMessageShown, setSuccessMessageShown] = useState(false);
+
+  const [hiddenIncorrectImages, setHiddenIncorrectImages] = useState(0);
 
   useEffect(() => {
     const runHandDetection = async () => {
@@ -180,6 +182,30 @@ function Game({ imageUrls, moveDirections, Indexs }) {
           prevDisabled.filter((btnIndex) => btnIndex !== index)
         );
 
+        const incorrectHiddenImages = updatedOpacities.reduce(
+          
+          (count, opacity, buttonIndex) =>
+            opacity === 0 && !Indexs.includes(buttonIndex) ? count + 1 : count,
+          0
+        );
+        setHiddenIncorrectImages(incorrectHiddenImages);
+        if (!Indexs || Indexs.length === 40) {
+          
+          alert("Por favor seleccionar la opción : Seleccionar Index");
+          window.location.reload();
+         // return;  Detener la ejecución si la matriz Indexs está vacía
+        
+        }
+
+        if (hiddenIncorrectImages >= 3) {
+          const successMessage = new SpeechSynthesisUtterance(
+            "¡Intenta otra vez "
+          );
+          alert("¡Game Over! Has ocultado 3 imágenes incorrectas.");
+          window.location.reload();
+
+        }
+
         const allButtonsHidden = Indexs.every(
           (buttonIndex) => updatedOpacities[buttonIndex] === 0
         );
@@ -188,12 +214,13 @@ function Game({ imageUrls, moveDirections, Indexs }) {
           setSuccessMessageShown(true);
           // Cambiar el mensaje de alerta por un mensaje de voz
           const successMessage = new SpeechSynthesisUtterance(
-            "¡Bien hecho! Continua jugando"
+            "¡Bien hecho! Felicitaciones "
           );
           synth.speak(successMessage);
 
-          console.log("Matriz Indexs:", Indexs);
+          window.location.reload();
         }
+        console.log("Matriz Indexs:", Indexs.length);
       }, 0);
     }
   };
