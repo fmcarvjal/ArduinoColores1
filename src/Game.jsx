@@ -183,18 +183,17 @@ function Game({ imageUrls, moveDirections, Indexs }) {
         );
 
         const incorrectHiddenImages = updatedOpacities.reduce(
-          
           (count, opacity, buttonIndex) =>
             opacity === 0 && !Indexs.includes(buttonIndex) ? count + 1 : count,
           0
         );
         setHiddenIncorrectImages(incorrectHiddenImages);
         if (!Indexs || Indexs.length === 40) {
-          
+          //cuando la matriz esta vacia tiene una longitud de 40
+
           alert("Por favor seleccionar la opción : Seleccionar Index");
           window.location.reload();
-         // return;  Detener la ejecución si la matriz Indexs está vacía
-        
+          // return;  Detener la ejecución si la matriz Indexs está vacía
         }
 
         if (hiddenIncorrectImages >= 3) {
@@ -203,7 +202,6 @@ function Game({ imageUrls, moveDirections, Indexs }) {
           );
           alert("¡Game Over! Has ocultado 3 imágenes incorrectas.");
           window.location.reload();
-
         }
 
         const allButtonsHidden = Indexs.every(
@@ -293,6 +291,7 @@ function Game({ imageUrls, moveDirections, Indexs }) {
           />
 
           <ButtonComponent
+            className="ButtonComponent" /* Asigna la clase directamente */
             color={buttonColors[0]}
             position={buttonPosition - 150}
             handleClick={() => handleClick(3)}
