@@ -32,23 +32,23 @@ function App() {
               <ul>
                 
                 <li>
-                  <Link to="/image-input">Ingresar Imágenes</Link>
+                  <Link to="/ArduinoColores1/image-input">Ingresar Imágenes</Link>
                 </li>
                 <li>
-                  <Link to="/direcction-input">Ingresar Velocidad</Link>
+                  <Link to="/ArduinoColores1/direcction-input">Ingresar Velocidad</Link>
                 </li>
                 <li>
-                  <Link to="/imagen-index">Seleccionar Index</Link>
+                  <Link to="/ArduinoColores1/imagen-index">Seleccionar Index</Link>
                 </li>
                 <li>
-                  <Link to="/">Ir al Juego</Link>
+                  <Link to="/ArduinoColores1/">Ir al Juego</Link>
                 </li>
               </ul>
             </nav>
           </div>
           <Routes>
             <Route
-              path="/"
+              path="/ArduinoColores1/"
               element={
                 <AppPage
                   imageUrls={imageUrls}
@@ -58,17 +58,17 @@ function App() {
               }
             />
             <Route
-              path="/image-input"
+              path="/ArduinoColores1/image-input"
               element={<ImageInputPage onImageSubmit={handleImageSubmit} />}
             />
             <Route
-              path="/direcction-input"
+              path="/ArduinoColores1/direcction-input"
               element={
                 <MoveDirection onDirectionSubmit={handleDirectionSubmit} />
               }
             />
             <Route
-              path="/imagen-index"
+              path="/ArduinoColores1/imagen-index"
               element={
               <ImageVisibilityChecker onIndexSubmit={toggleSelectedIndex}
             
