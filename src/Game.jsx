@@ -275,7 +275,7 @@ function Game({ imageUrls, moveDirections, Indexs }) {
 
       <div className="incorrect-images-count">
         {/* Muestra el número de imágenes incorrectas */}
-        <div>{hiddenIncorrectImages}</div>
+        <div>{3- hiddenIncorrectImages}</div>
       </div>
 
       <img

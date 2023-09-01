@@ -5,6 +5,7 @@ import marioSound from "./pacman-intermission.mp3"
 function ImageVisibilityChecker({ onIndexSubmit }) {
   const [selectedIndices, setSelectedIndices] = useState([]);
   const [checkboxesDisabled, setCheckboxesDisabled] = useState(Array.from({ length: 40 }, () => false)); // Inicializar todos los checkboxes como deshabilitados
+  const [selectAllChecked, setSelectAllChecked] = useState(false); // Estado para el botón Seleccionar Todo
 
   useEffect(() => {
     const storedIndices = localStorage.getItem("selectedIndices");
@@ -20,8 +21,16 @@ function ImageVisibilityChecker({ onIndexSubmit }) {
       : [...selectedIndices, index];
     setSelectedIndices(updatedIndices);
     localStorage.setItem("selectedIndices", JSON.stringify(updatedIndices));
-   // playMarioSound();
+    // playMarioSound();
     console.log(selectedIndices);
+  };
+
+  const toggleSelectAll = () => {
+    const allSelected = !selectAllChecked;
+    setSelectAllChecked(allSelected);
+    const updatedIndices = allSelected ? Array.from({ length: 40 }, (_, index) => index) : [];
+    setSelectedIndices(updatedIndices);
+    localStorage.setItem("selectedIndices", JSON.stringify(updatedIndices));
   };
 
   const playMarioSound = () => {
@@ -37,6 +46,9 @@ function ImageVisibilityChecker({ onIndexSubmit }) {
   return (
     <div className="ImageVisibilityChecker">
       <h2>Selecciona los índices de las imágenes a verificar:</h2>
+      <button onClick={toggleSelectAll}>
+        {selectAllChecked ? "Desmarcar Todo" : "Marcar Todo"}
+      </button>
       <ul className="grid">
         {Array.from({ length: 40 }, (_, index) => (
           <li key={index} className="grid-item">
