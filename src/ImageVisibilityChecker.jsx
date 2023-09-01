@@ -20,7 +20,7 @@ function ImageVisibilityChecker({ onIndexSubmit }) {
       : [...selectedIndices, index];
     setSelectedIndices(updatedIndices);
     localStorage.setItem("selectedIndices", JSON.stringify(updatedIndices));
-    playMarioSound();
+   // playMarioSound();
     console.log(selectedIndices);
   };
 
