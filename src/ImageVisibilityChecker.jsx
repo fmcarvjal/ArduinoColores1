@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ImageVisibilityChecker.css"
+import marioSound from "./pacman-intermission.mp3"
 
 function ImageVisibilityChecker({ onIndexSubmit }) {
   const [selectedIndices, setSelectedIndices] = useState([]);
@@ -19,8 +20,13 @@ function ImageVisibilityChecker({ onIndexSubmit }) {
       : [...selectedIndices, index];
     setSelectedIndices(updatedIndices);
     localStorage.setItem("selectedIndices", JSON.stringify(updatedIndices));
-
+    playMarioSound();
     console.log(selectedIndices);
+  };
+
+  const playMarioSound = () => {
+    const audio = new Audio(marioSound);
+    audio.play();
   };
 
   const checkSelectedButtons = () => {
