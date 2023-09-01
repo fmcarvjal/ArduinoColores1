@@ -10,8 +10,8 @@ import imagen4 from "./assets/imagen/barra.png";
 
 import ButtonComponent from "./ButtonComponent";
 
-import marioSound from "./pacman-intermission.mp3"
-import SoundOver from "./pacman-5.mp3"
+import marioSound from "./pacman-intermission.mp3";
+import SoundOver from "./pacman-5.mp3";
 
 // Importar librería de voz
 const synth = window.speechSynthesis;
@@ -46,27 +46,24 @@ function Game({ imageUrls, moveDirections, Indexs }) {
   const [hiddenIncorrectImages, setHiddenIncorrectImages] = useState(0);
 
   const showAlert = () => {
-  
     // Reproduce el sonido del alert
     const alertAudio = new Audio(SoundOver);
 
     alertAudio.play();
-  
+
     // Muestra el alert
     alert("¡Game Over! Has ocultado 3 imágenes incorrectas.");
-   
   };
 
   useEffect(() => {
     const audio = new Audio(marioSound);
     audio.loop = true; // Reproducir el sonido en bucle
     audio.pause();
-  
+
     return () => {
       audio.pause();
     };
   }, []);
-  
 
   useEffect(() => {
     const runHandDetection = async () => {
@@ -104,7 +101,6 @@ function Game({ imageUrls, moveDirections, Indexs }) {
             setHandClosed(false);
             setHandPosition({ x, y });
             handleButtonClick(x, y);
-            
           } else if (label === "pinchtipoo") {
             console.log("¡Escribir!");
           }
@@ -113,10 +109,9 @@ function Game({ imageUrls, moveDirections, Indexs }) {
         requestAnimationFrame(detectHand);
       };
 
-
       detectHand();
-    
-// ...
+
+      // ...
 
       return () => {
         model.dispose();
@@ -140,7 +135,6 @@ function Game({ imageUrls, moveDirections, Indexs }) {
         setMoveDirection(moveDirections);
         setButtonPosition(10);
       }
-     
     }, moveDirection);
 
     return () => {
@@ -228,17 +222,13 @@ function Game({ imageUrls, moveDirections, Indexs }) {
         }
 
         if (hiddenIncorrectImages >= 3) {
-         
           const successMessage = new SpeechSynthesisUtterance(
             "¡Intenta otra vez!  Has ocultado 3 imágenes incorrectas.  "
           );
           synth.speak(successMessage);
-          showAlert()
-            window.location.reload();
+          showAlert();
+          window.location.reload();
         }
-
-      
-        
 
         const allButtonsHidden = Indexs.every(
           (buttonIndex) => updatedOpacities[buttonIndex] === 0
@@ -281,6 +271,11 @@ function Game({ imageUrls, moveDirections, Indexs }) {
     <div className="app-container">
       <div className="video-container">
         <video ref={videoRef} autoPlay={true} />
+      </div>
+
+      <div className="incorrect-images-count">
+        {/* Muestra el número de imágenes incorrectas */}
+        <div>{hiddenIncorrectImages}</div>
       </div>
 
       <img
