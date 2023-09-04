@@ -213,7 +213,7 @@ function Game({ imageUrls, moveDirections, Indexs }) {
           0
         );
         setHiddenIncorrectImages(incorrectHiddenImages);
-        if (!Indexs || Indexs.length > 40) {
+        if (!Indexs || Indexs.length === 40) {
           //cuando la matriz esta vacia tiene una longitud de 40
 
           alert("Por favor seleccionar la opción : Seleccionar Index");
