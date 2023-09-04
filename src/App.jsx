@@ -4,14 +4,14 @@ import "./App.css";
 import AppPage from "./Game";
 import ImageInputPage from "./ImageInputPage";
 import MoveDirection from "./MoveDirection";
-import ImageVisibilityChecker from "./ImageVisibilityChecker"
+import ImageVisibilityChecker from "./ImageVisibilityChecker";
 
 function App() {
   const [imageUrls, setImageUrls] = useState(["", "", "", ""]);
   const [moveDirections, setMoveDirections] = useState(0);
   const [Indexs, setIndex] = useState(Array.from({ length: 40 }, () => "")); // Inicializar con ceros
 
-  const handleImageSubmit = (newUrls) => {
+  const handleImageUrlsSubmit = (newUrls) => {
     setImageUrls(newUrls);
   };
 
@@ -19,9 +19,9 @@ function App() {
     setMoveDirections(direction);
   };
 
-  const toggleSelectedIndex =(index)=>{
-    setIndex(index)
-  }
+  const toggleSelectedIndex = (index) => {
+    setIndex(index);
+  };
 
   return (
     <div>
@@ -30,25 +30,24 @@ function App() {
           <div className="nav-container">
             <nav>
               <ul>
-                
                 <li>
-                  <Link to="/ArduinoColores1/image-input">Ingresar Imágenes</Link>
+                  <Link to="/image-input">Ingresar Imágenes</Link>
                 </li>
                 <li>
-                  <Link to="/ArduinoColores1/direcction-input">Ingresar Velocidad</Link>
+                  <Link to="/direction-input">Ingresar Velocidad</Link>
                 </li>
                 <li>
-                  <Link to="/ArduinoColores1/imagen-index">Seleccionar Index</Link>
+                  <Link to="/imagen-index">Seleccionar Index</Link>
                 </li>
                 <li>
-                  <Link to="/ArduinoColores1/">Ir al Juego</Link>
+                  <Link to="/">Ir al Juego</Link>
                 </li>
               </ul>
             </nav>
           </div>
           <Routes>
             <Route
-              path="/ArduinoColores1/"
+              path="/"
               element={
                 <AppPage
                   imageUrls={imageUrls}
@@ -58,21 +57,17 @@ function App() {
               }
             />
             <Route
-              path="/ArduinoColores1/image-input"
-              element={<ImageInputPage onImageSubmit={handleImageSubmit} />}
+              path="/image-input"
+              element={<ImageInputPage onImageSubmit={handleImageUrlsSubmit} />}
             />
             <Route
-              path="/ArduinoColores1/direcction-input"
-              element={
-                <MoveDirection onDirectionSubmit={handleDirectionSubmit} />
-              }
+              path="/direction-input"
+              element={<MoveDirection onDirectionSubmit={handleDirectionSubmit} />}
             />
             <Route
-              path="/ArduinoColores1/imagen-index"
+              path="/imagen-index"
               element={
-              <ImageVisibilityChecker onIndexSubmit={toggleSelectedIndex}
-            
-               />
+                <ImageVisibilityChecker onIndexSubmit={toggleSelectedIndex} />
               }
             />
           </Routes>
