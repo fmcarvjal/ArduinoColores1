@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div>
-      <Router>
+      <Router basename="/ArduinoColores1">
         <div className="app-container">
           <div className="nav-container">
             <nav>
