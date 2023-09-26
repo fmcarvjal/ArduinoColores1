@@ -10,6 +10,7 @@ function App() {
   const [imageUrls, setImageUrls] = useState(["", "", "", ""]);
   const [moveDirections, setMoveDirections] = useState(0);
   const [Indexs, setIndex] = useState(Array.from({ length: 40 }, () => "")); // Inicializar con ceros
+  const [mensaje, setMensaje] = useState("");
 
   const handleImageUrlsSubmit = (newUrls) => {
     setImageUrls(newUrls);
@@ -19,13 +20,14 @@ function App() {
     setMoveDirections(direction);
   };
 
-  const toggleSelectedIndex = (index) => {
+  const toggleSelectedIndex = (index,mensaje) => {
     setIndex(index);
+    setMensaje(mensaje)
   };
 
   return (
     <div>
-      <Router basename="/ArduinoColores1">
+      <Router basename="/ArduinoColores1/">
         <div className="app-container">
           <div className="nav-container">
             <nav>
@@ -34,7 +36,7 @@ function App() {
                   <Link to="/image-input">Ingresar Imágenes</Link>
                 </li>
                 <li>
-                  <Link to="/direction-input">Ingresar Velocidad</Link>
+                  <Link to="/direction-input">Aumentar Velocidad</Link>
                 </li>
                 <li>
                   <Link to="/imagen-index">Seleccionar Index</Link>
@@ -53,6 +55,7 @@ function App() {
                   imageUrls={imageUrls}
                   moveDirections={moveDirections}
                   Indexs={Indexs}
+                  mensaje ={mensaje}
                 />
               }
             />

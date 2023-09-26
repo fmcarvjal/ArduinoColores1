@@ -7,7 +7,7 @@ function SliderComponent({ onDirectionSubmit }) {
   const handleSliderChange = (event) => {
     const newMoveDirection = parseFloat(event.target.value);
     setMoveDirection(newMoveDirection);
-    onDirectionSubmit(3-newMoveDirection);
+    onDirectionSubmit(newMoveDirection);
   };
 
   return (
@@ -15,9 +15,9 @@ function SliderComponent({ onDirectionSubmit }) {
       <label>Velocidad: {moveDirection}</label>
       <input
         type="range"
-        min="0"
-        max="3"
-        step="0.1"
+        min="1"
+        max="10"
+        step="1"
         value={moveDirection}
         onChange={handleSliderChange}
       />

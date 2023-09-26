@@ -16,7 +16,8 @@ import SoundOver from "./pacman-5.mp3";
 // Importar librería de voz
 const synth = window.speechSynthesis;
 
-function Game({ imageUrls, moveDirections, Indexs }) {
+
+function Game({ imageUrls, moveDirections, Indexs, mensaje }) {
   const videoRef = useRef(null);
   const [handClosed, setHandClosed] = useState(false);
   const [handPosition, setHandPosition] = useState({ x: 0, y: 0 });
@@ -31,8 +32,9 @@ function Game({ imageUrls, moveDirections, Indexs }) {
 
   const [disabledButtons, setDisabledButtons] = useState([]);
   const [buttonPosition, setButtonPosition] = useState(0);
-  const [moveDirection, setMoveDirection] = useState(0);
+  const [moveDirection, setMoveDirection] = useState(1);
   const [ocultarButtons, setOcultarButtons] = useState(Array(40).fill(true));
+  
 
   const [buttonOpacities, setButtonOpacities] = useState(Array(40).fill(1)); // Inicializar las opacidades
 
@@ -45,17 +47,31 @@ function Game({ imageUrls, moveDirections, Indexs }) {
 
   const [hiddenIncorrectImages, setHiddenIncorrectImages] = useState(0);
 
+  // Función para convertir texto en voz
+  const textToSpeech = (text) => {
+    const speechMessage = new SpeechSynthesisUtterance(text);
+    synth.speak(speechMessage);
+  };
+
+
+
   const showAlert = () => {
     // Reproduce el sonido del alert
-    const alertAudio = new Audio(SoundOver);
-
-    alertAudio.play();
-
+    //const alertAudio = new Audio(SoundOver);
+    //alertAudio.play();
     // Muestra el alert
-    alert("¡Game Over! Has ocultado 3 imágenes incorrectas.");
+    //alert("¡Game Over! Has ocultado 3 imágenes incorrectas");
+    textToSpeech("¡Game Over! Has ocultado 3 imágenes incorrectas")
   };
 
   useEffect(() => {
+    // Esta función se ejecutará solo al iniciar la renderización
+    textToSpeech(mensaje);
+    setMoveDirection(2)
+  }, []); // El arreglo de dependencias vacío garantiza que se ejecute solo una vez
+
+
+ /* useEffect(() => {
     const audio = new Audio(marioSound);
     audio.loop = true; // Reproducir el sonido en bucle
     audio.pause();
@@ -63,7 +79,7 @@ function Game({ imageUrls, moveDirections, Indexs }) {
     return () => {
       audio.pause();
     };
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     const runHandDetection = async () => {
@@ -83,6 +99,7 @@ function Game({ imageUrls, moveDirections, Indexs }) {
 
       const model = await handTrack.load(defaultParams);
       await handTrack.startVideo(video);
+      
 
       const detectHand = async () => {
         const predictions = await model.detect(video);
@@ -126,7 +143,7 @@ function Game({ imageUrls, moveDirections, Indexs }) {
 
   useEffect(() => {
     const moveButtonInterval = setInterval(() => {
-      setButtonPosition((prevPosition) => prevPosition + 1.3);
+      setButtonPosition((prevPosition) => prevPosition +1.7+ moveDirection);
 
       if (buttonPosition >= window.innerHeight + 1550) {
         setMoveDirection(moveDirections);
@@ -135,12 +152,12 @@ function Game({ imageUrls, moveDirections, Indexs }) {
         setMoveDirection(moveDirections);
         setButtonPosition(10);
       }
-    }, moveDirection);
+    }, 16);
 
     return () => {
       clearInterval(moveButtonInterval);
     };
-  }, [buttonPosition]);
+  }, [buttonPosition,moveDirection]);
 
   useEffect(() => {
     // Calcular las diferencias entre las coordenadas actuales y previas
@@ -216,18 +233,18 @@ function Game({ imageUrls, moveDirections, Indexs }) {
         if (!Indexs || Indexs.length === 40) {
           //cuando la matriz esta vacia tiene una longitud de 40
 
-          alert("Por favor seleccionar la opción : Seleccionar Index");
+         // alert("Por favor seleccionar la opción : Seleccionar Index");
+          textToSpeech("Por favor seleccionar la opción : Seleccionar Index en la parte derecha")
           window.location.reload();
-          // return;  Detener la ejecución si la matriz Indexs está vacía
+          return;  //Detener la ejecución si la matriz Indexs está vacía
         }
 
         if (hiddenIncorrectImages >= 3) {
-          const successMessage = new SpeechSynthesisUtterance(
-            "¡Intenta otra vez!  Has ocultado 3 imágenes incorrectas.  "
-          );
-          synth.speak(successMessage);
+          const failMessage = "¡Intenta otra vez!  Has ocultado 3 imágenes incorrectas.";
+          textToSpeech(failMessage);
           showAlert();
           window.location.reload();
+          return;
         }
 
         const allButtonsHidden = Indexs.every(
@@ -237,15 +254,15 @@ function Game({ imageUrls, moveDirections, Indexs }) {
         if (allButtonsHidden && !successMessageShown) {
           setSuccessMessageShown(true);
           // Cambiar el mensaje de alerta por un mensaje de voz
-          const successMessage = new SpeechSynthesisUtterance(
-            "¡Bien hecho! Felicitaciones "
-          );
-          synth.speak(successMessage);
+          const successMessage="¡Bien hecho! Felicitaciones";
+
+            textToSpeech(successMessage)
 
           window.location.reload();
+          return;
         }
         console.log("Matriz Indexs:", Indexs.length);
-      }, 0);
+      }, 1);
     }
   };
 
@@ -275,7 +292,10 @@ function Game({ imageUrls, moveDirections, Indexs }) {
 
       <div className="incorrect-images-count">
         {/* Muestra el número de imágenes incorrectas */}
-        <div>{3- hiddenIncorrectImages}</div>
+        <div className="vidas">{3- hiddenIncorrectImages}</div>
+        <div className="velocidad"> Vel:  {1.7+ moveDirection}  </div>
+        
+        
       </div>
 
       <img
