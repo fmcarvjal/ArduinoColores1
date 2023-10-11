@@ -92,12 +92,14 @@ function ImageVisibilityChecker({ onIndexSubmit }) {
   };
 
   return (
+    <div>
     <div className="ImageVisibilityChecker">
       <h2>Selecciona una opción:</h2>
 
      {/* <button onClick={toggleSelectAll}>
         {selectAllChecked ? "NADA" : "TODO"}
       </button>*/}
+        
       <button onClick={handleSelectIndices1}>ROJO I</button>
       <button onClick={handleSelectIndices2}>ROJO D</button>
       <button onClick={handleSelectIndices3}>VERDE I</button>
@@ -133,6 +135,7 @@ function ImageVisibilityChecker({ onIndexSubmit }) {
       <div>
         <p>Mensaje seleccionado: {mensaje}</p>
       </div> */}
+    </div>
     </div>
   );
 }
