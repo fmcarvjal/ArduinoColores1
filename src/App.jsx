@@ -33,7 +33,7 @@ function App() {
             <nav>
               <ul>
                 <li>
-                  <Link to="/image-input">Ingresar Imágenes</Link>
+                {/*  <Link to="/image-input">Ingresar Imágenes</Link>*/}
                 </li>
                 <li>
                   <Link to="/direction-input">Aumentar Velocidad</Link>

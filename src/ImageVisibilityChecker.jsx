@@ -93,18 +93,18 @@ function ImageVisibilityChecker({ onIndexSubmit }) {
 
   return (
     <div className="ImageVisibilityChecker">
-      <h2>Selecciona los índices de las imágenes a verificar:</h2>
+      <h2>Selecciona una opción:</h2>
 
-      <button onClick={toggleSelectAll}>
+     {/* <button onClick={toggleSelectAll}>
         {selectAllChecked ? "NADA" : "TODO"}
-      </button>
+      </button>*/}
       <button onClick={handleSelectIndices1}>ROJO I</button>
       <button onClick={handleSelectIndices2}>ROJO D</button>
       <button onClick={handleSelectIndices3}>VERDE I</button>
       <button onClick={handleSelectIndices4}>VERDE D</button>
       <button onClick={handleSelectIndices5}>AZUL I</button>
       <button onClick={handleSelectIndices6}>AZUL D</button>
-      <ul className="grid">
+     {/* <ul className="grid">
         {Array.from({ length: 40 }, (_, index) => (
           <li key={index} className="grid-item">
             <label>
@@ -132,7 +132,7 @@ function ImageVisibilityChecker({ onIndexSubmit }) {
 
       <div>
         <p>Mensaje seleccionado: {mensaje}</p>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -35,6 +35,7 @@
     cursor: pointer;
     font-size: 1rem;
     margin-top: 10px;
+    gap: 20px;
   }
   
   button:hover {
@@ -45,3 +46,6 @@
     background-color: #003d80;
   }
   
+  .ImageVisibilityChecker button {
+    margin-right: 20px;
+  }
